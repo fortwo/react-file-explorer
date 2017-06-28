@@ -1,0 +1,28 @@
+{
+  "name": "react-file-explorer",
+  "version": "0.0.0",
+  "description": "Customizable and responsive file explorer component for React applications.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/one89/react-file-explorer.git"
+  },
+  "author": "one89 <fortunati.francesco89@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/one89/react-file-explorer/issues"
+  },
+  "homepage": "https://github.com/one89/react-file-explorer#readme",
+  "devDependencies": {
+    "babel-loader": "^7.1.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0"
+  },
+  "dependencies": {}
+}
