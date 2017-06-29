@@ -4,7 +4,7 @@
   "description": "Customizable and responsive file explorer component for React applications.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --hot",
     "build": "webpack"
   },
   "repository": {
@@ -19,8 +19,11 @@
   "homepage": "https://github.com/one89/react-file-explorer#readme",
   "devDependencies": {
     "babel-loader": "^7.1.1",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "style-loader": "^0.18.2",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
   },

@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Components
+import History from './History.js';
 import Node from './Node';
 
 class FileExplorer extends React.Component {
@@ -54,14 +56,9 @@ class FileExplorer extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.goToUpperLevel}>Upper</button>
-        <div>
-          {this.state.history.map((node, index) => {
-            return (
-              <span key={index}>{node.name}</span>
-            );
-          })}
-        </div>
+        <History 
+          nodes={this.state.history}
+          goToUpperLevel={this.goToUpperLevel} />
         <span>_____________</span>
         {this.state.nodes.map((node, index) => {
           return (
