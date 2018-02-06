@@ -27,5 +27,8 @@
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.0"
+  }
 }
