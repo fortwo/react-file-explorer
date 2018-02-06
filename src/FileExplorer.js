@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import History from './History.js';
@@ -11,21 +12,47 @@ class FileExplorer extends React.Component {
     this.state = {
       history: [],
       nodes: [],
+      selected: '',
     };
 
-    this.goToDeeperLevel = this.goToDeeperLevel.bind(this);
+    // History Methods
     this.goToUpperLevel = this.goToUpperLevel.bind(this);
+
+    // Node Methods
+    this.handleSingleClick = this.handleSingleClick.bind(this);
+    this.goToDeeperLevel = this.goToDeeperLevel.bind(this);
   }
 
   componentDidMount() {
     const history = [{
-      name: '/', 
+      name: '/',
       children: this.props.data,
     }];
 
     this.setState({
       history,
       nodes: this.props.data,
+    });
+  }
+
+  // History Methods
+  goToUpperLevel() {
+    const history = this.state.history;
+    history.pop();
+
+    const nodes = history[history.length - 1].children;
+
+    this.setState({
+      history,
+      nodes,
+      selected: '',
+    });
+  }
+
+  // Node Methods
+  handleSingleClick(key) {
+    this.setState({
+      selected: key,
     });
   }
 
@@ -41,39 +68,33 @@ class FileExplorer extends React.Component {
     });
   }
 
-  goToUpperLevel() {
-    const history = this.state.history;
-    history.pop();
-
-    const nodes = history[history.length - 1].children;
-
-    this.setState({
-      history,
-      nodes,
-    });
-  }
-
   render() {
     return (
-      <div>
-        <History 
+      <div className='container'>
+        <History
           nodes={this.state.history}
           goToUpperLevel={this.goToUpperLevel} />
-        <span>_____________</span>
-        {this.state.nodes.map((node, index) => {
-          return (
-            <Node key={index} 
-              data={node} 
-              goToDeeperLevel={this.goToDeeperLevel} />
-          );
-        })}
+
+        {
+          this.state.nodes.map((node, index) => {
+            const selected = node.id === this.state.selected;
+
+            return (
+              <Node key={node.id}
+                data={node}
+                onSingleClick={this.handleSingleClick}
+                goToDeeperLevel={this.goToDeeperLevel}
+                selected={selected} />
+            );
+          })
+        }
       </div>
     );
   }
 }
 
 FileExplorer.propTypes = {
-  data: React.PropTypes.array,
+  data: PropTypes.array,
 };
 
 export default FileExplorer;
