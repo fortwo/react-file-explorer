@@ -28,7 +28,7 @@ class Node extends React.Component {
 
   render() {
     const { data, selected, onSingleClick } = this.props;
-    const isFolder = !!(data.children && data.children.length);
+    const isFolder = !!data.children;
 
     const classes = classNames({
       'file': !isFolder,
