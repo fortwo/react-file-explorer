@@ -1,7 +1,9 @@
-.file {}
+.file {
+  cursor: default;
+}
 
 .folder {
-  cursor: pointer;
+  cursor: default;
 }
 
 /* COMMON */

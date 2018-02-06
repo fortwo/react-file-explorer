@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import History from './History.js';
 import Node from './Node';
 
+// Style
+import './FileExplorer.css';
+
 class FileExplorer extends React.Component {
   constructor(props) {
     super(props);
