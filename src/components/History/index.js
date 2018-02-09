@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Style
-import './History.css';
+import './index.css';
 
 class History extends React.Component {
   render() {

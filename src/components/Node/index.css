@@ -1,12 +1,13 @@
 .file {
   cursor: default;
+  position: relative;
 }
 
 .folder {
   cursor: default;
+  position: relative;
 }
 
-/* COMMON */
 .hovered {
   background-color: lightseagreen;
   color: white;
@@ -30,4 +31,12 @@
   -ms-user-select: none;
   /* Non-prefixed version, currently supported by Chrome and Opera */
   user-select: none;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  background: white;
+  width: 100px;
+  border: 1px solid red;
 }

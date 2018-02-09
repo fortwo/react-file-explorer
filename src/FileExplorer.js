@@ -2,11 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Components
-import History from './History.js';
-import Node from './Node';
-
-// Style
-import './FileExplorer.css';
+import History from './components/History';
+import Node from './components/Node';
 
 class FileExplorer extends React.Component {
   constructor(props) {
@@ -24,6 +21,8 @@ class FileExplorer extends React.Component {
     // Node Methods
     this.handleSingleClick = this.handleSingleClick.bind(this);
     this.goToDeeperLevel = this.goToDeeperLevel.bind(this);
+    this.handleRightClick = this.handleRightClick.bind(this);
+    this.hideMenu = this.hideMenu.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +36,12 @@ class FileExplorer extends React.Component {
       history,
       nodes: this.props.data,
     });
+
+    document.addEventListener('click', this.hideMenu);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.hideMenu);
   }
 
   // History Methods
@@ -70,6 +75,18 @@ class FileExplorer extends React.Component {
     });
   }
 
+  handleRightClick() {
+    this.setState({
+      visibleMenu: true,
+    });
+  }
+
+  hideMenu() {
+    this.setState({
+      visibleMenu: false,
+    });
+  }
+
   render() {
     return (
       <div className='container'>
@@ -86,9 +103,15 @@ class FileExplorer extends React.Component {
                 data={node}
                 onSingleClick={this.handleSingleClick}
                 goToDeeperLevel={this.goToDeeperLevel}
-                selected={selected} />
+                selected={selected} 
+                handleRightClick={this.handleRightClick} />
             );
           })
+        }
+
+        {
+          this.state.visibleMenu &&
+          <div className='menu'>test</div>
         }
       </div>
     );
