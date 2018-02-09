@@ -28,6 +28,7 @@ class FileExplorer extends React.Component {
 
   componentDidMount() {
     const history = [{
+      id: '/',
       name: '/',
       children: this.props.data,
     }];
@@ -39,15 +40,13 @@ class FileExplorer extends React.Component {
   }
 
   // History Methods
-  goToUpperLevel() {
-    const history = this.state.history;
-    history.pop();
-
-    const nodes = history[history.length - 1].children;
+  goToUpperLevel(node) {
+    const index = this.state.history.findIndex(level => level.id === node.id);
+    const history = this.state.history.slice(0, (index + 1));
 
     this.setState({
       history,
-      nodes,
+      nodes: node.children,
       selected: '',
     });
   }

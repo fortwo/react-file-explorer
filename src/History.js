@@ -1,15 +1,22 @@
 import React from 'react';
 
+// Style
+import './History.css';
+
 class History extends React.Component {
   render() {
     return (
-      <div className="history">
-        <button onClick={this.props.goToUpperLevel}>Upper</button>
-        {this.props.nodes.map((node, index) => {
-          return (
-            <span key={index}>{node.name}</span>
-          );
-        })}
+      <div className='history'>
+        {
+          this.props.nodes.map((node, index) => {
+            return (
+              <span 
+                key={index}
+                className='history_level'
+                onClick={() => this.props.goToUpperLevel(node)}>{node.name}</span>
+            );
+          })
+        }
       </div>
     );
   }

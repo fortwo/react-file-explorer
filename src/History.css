@@ -1,3 +1,12 @@
 .history {
   font-size: bold;
 }
+
+.history_level {
+  padding: 0 8px;
+  cursor: default;
+}
+
+.history_level:hover {
+  background: lightgrey;
+}
