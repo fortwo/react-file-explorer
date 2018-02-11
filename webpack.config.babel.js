@@ -3,6 +3,7 @@ import webpack from 'webpack';
 
 // Plugins
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const options = {
   entry: './example/index.js',
@@ -17,6 +18,9 @@ const options = {
         test: /.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react'],
+        }
       },
       {
         test: /\.css$/,
@@ -32,6 +36,10 @@ const options = {
   },
   plugins: [
     new ExtractTextPlugin('[name].css'),
+    new HtmlWebpackPlugin({
+      title: 'React File Explorer',
+      template: './index.html',
+    }),
   ],
 };
 
