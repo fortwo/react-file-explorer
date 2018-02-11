@@ -1,0 +1,11 @@
+.container {}
+
+.nodes-container {
+  margin-top: 8px;
+  border: 1px solid;
+  padding: 8px;
+}
+
+.no-history {
+  margin: 0;
+}

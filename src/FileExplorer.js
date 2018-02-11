@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 // Components
 import History from './components/History';
 import Node from './components/Node';
+
+// Style
+import './index.css';
 
 class FileExplorer extends React.Component {
   constructor(props) {
@@ -28,7 +32,7 @@ class FileExplorer extends React.Component {
   componentDidMount() {
     const history = [{
       id: '/',
-      name: '/',
+      name: this.props.rootLabel,
       children: this.props.data,
     }];
 
@@ -88,26 +92,38 @@ class FileExplorer extends React.Component {
   }
 
   render() {
+    const { showHistory } = this.props;
+
+    const classes = classNames({
+      'nodes-container': true,
+      'no-history': !showHistory,
+    });
+
     return (
       <div className='container'>
-        <History
-          nodes={this.state.history}
-          goToUpperLevel={this.goToUpperLevel} />
-
         {
-          this.state.nodes.map((node, index) => {
-            const selected = node.id === this.state.selected;
-
-            return (
-              <Node key={node.id}
-                data={node}
-                onSingleClick={this.handleSingleClick}
-                goToDeeperLevel={this.goToDeeperLevel}
-                selected={selected} 
-                handleRightClick={this.handleRightClick} />
-            );
-          })
+          showHistory &&
+          <History
+            nodes={this.state.history}
+            goToUpperLevel={this.goToUpperLevel} />
         }
+
+        <div className={classes}>
+          {
+            this.state.nodes.map((node, index) => {
+              const selected = node.id === this.state.selected;
+
+              return (
+                <Node key={node.id}
+                  data={node}
+                  onSingleClick={this.handleSingleClick}
+                  goToDeeperLevel={this.goToDeeperLevel}
+                  selected={selected}
+                  handleRightClick={this.handleRightClick} />
+              );
+            })
+          }
+        </div>
 
         {
           this.state.visibleMenu &&
@@ -120,6 +136,13 @@ class FileExplorer extends React.Component {
 
 FileExplorer.propTypes = {
   data: PropTypes.array,
+  showHistory: PropTypes.bool,
+  rootLabel: PropTypes.string,
+};
+
+FileExplorer.defaultProps = {
+  showHistory: true,
+  rootLabel: 'Home',
 };
 
 export default FileExplorer;

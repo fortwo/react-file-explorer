@@ -1,9 +1,11 @@
 .history {
-  font-size: bold;
+  display: flex;
+  border: 1px solid;
+  font-weight: bold;
 }
 
 .history_level {
-  padding: 0 8px;
+  padding: 8px;
   cursor: default;
 }
 
