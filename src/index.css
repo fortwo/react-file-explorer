@@ -4,6 +4,13 @@
   margin-top: 8px;
   border: 1px solid;
   padding: 8px;
+  position: relative;
+  min-height: 35px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 100%;
+  overflow: auto;
 }
 
 .no-history {
