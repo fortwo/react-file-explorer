@@ -5,14 +5,40 @@
   border: 1px solid;
   padding: 8px;
   position: relative;
-  min-height: 35px;
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   max-width: 100%;
   overflow: auto;
 }
 
+.list-mode {
+  min-height: 35px;
+  flex-direction: column;
+}
+
+.icons-mode {
+  min-height: 70px;
+  flex-direction: row;
+}
+
 .no-history {
   margin: 0;
+}
+
+.menu {
+  padding: 8px;
+}
+
+.menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu ul li {
+  cursor: default;
+}
+
+.menu ul li .selected {
+  background: red;
 }

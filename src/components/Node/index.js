@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+// Constants
+import * as ViewModes from '../../constants/viewModes';
+
 // Style
 import './index.css';
 
@@ -28,7 +31,9 @@ class Node extends React.Component {
   handleRightClick(e) {
     e.preventDefault();
 
-    this.props.handleRightClick();
+    // e.target.offsetTop
+
+    //this.props.handleRightClick({ x: e.clientX, y: e.target.offsetTop });
   }
 
   handleDoubleClick(data) {
@@ -69,6 +74,7 @@ Node.propTypes = {
   goToDeeperLevel: PropTypes.func,
   selected: PropTypes.bool,
   handleRightClick: PropTypes.func,
+  viewMode: PropTypes.oneOf([ViewMode.LIST, ViewMode.ICONS]),
 };
 
 export default Node;
