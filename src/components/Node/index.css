@@ -1,11 +1,13 @@
 .file {
   cursor: default;
   position: relative;
+  width: 33%;
 }
 
 .folder {
   cursor: default;
   position: relative;
+  width: 33%;
 }
 
 .hovered {
