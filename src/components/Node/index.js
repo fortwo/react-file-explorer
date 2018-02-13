@@ -74,7 +74,7 @@ Node.propTypes = {
   goToDeeperLevel: PropTypes.func,
   selected: PropTypes.bool,
   handleRightClick: PropTypes.func,
-  viewMode: PropTypes.oneOf([ViewMode.LIST, ViewMode.ICONS]),
+  viewMode: PropTypes.oneOf([ViewModes.LIST, ViewModes.ICONS]),
 };
 
 export default Node;
