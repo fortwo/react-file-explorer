@@ -5,6 +5,10 @@ import classNames from 'classnames';
 // Constants
 import * as ViewModes from '../../constants/viewModes';
 
+// Assets
+import fileIcon from '../../assets/file_icon.png';
+import folderIcon from '../../assets/folder_icon.png';
+
 // Style
 import './index.css';
 
@@ -13,19 +17,11 @@ class Node extends React.Component {
     super();
 
     this.state = {
-      hovered: false,
       visibleMenu: false,
     };
 
-    this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
     this.handleDoubleClick = this.handleDoubleClick.bind(this);
-  }
-
-  handleMouseOver() {
-    this.setState({
-      hovered: !this.state.hovered,
-    });
   }
 
   handleRightClick(e) {
@@ -47,22 +43,21 @@ class Node extends React.Component {
     const isFolder = !!data.children;
 
     const classes = classNames({
+      'node': true,
       'file': !isFolder,
       'folder': isFolder,
-      'hovered': this.state.hovered && !selected,
       'selected': selected,
-      'no-select': true,
+      'noselect': true,
     });
 
     return (
       <div
         className={classes}
-        onMouseOver={this.handleMouseOver}
-        onMouseLeave={this.handleMouseOver}
         onContextMenu={this.handleRightClick}
         onClick={() => onSingleClick(data.id)}
         onDoubleClick={() => this.handleDoubleClick(data)}>
-        {data.name}
+        <img className='icon' src={isFolder ? folderIcon : fileIcon} />
+        <div className='filename'>{data.name}</div>
       </div>
     );
   }

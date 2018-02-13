@@ -26,12 +26,25 @@ const options = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }),
       },
+      {
+        test: /\.(jpg|png|gif)$/,
+        loader: 'file-loader',
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        loader: 'image-webpack-loader',
+        query: {
+          optipng: {
+            optimizationLevel: 7,
+          },
+        },
+      },
     ]
   },
   devServer: {
     contentBase: path.join(__dirname, 'example'),
     publicPath: '/example/',
-    port: 3000,
+    port: 3001,
     hot: true,
   },
   plugins: [
