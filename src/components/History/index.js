@@ -1,12 +1,26 @@
 import React from 'react';
+import styled from 'styled-components';
 
 // Style
-import './index.css';
+const Wrapper = styled.div`
+  display: flex;
+  border: 1px solid;
+  font-weight: bold;
+
+  > .history-level {
+    padding: 8px;
+    cursor: default;
+
+    &:hover {
+      background: lightgrey;
+    }
+  }
+`;
 
 class History extends React.Component {
   render() {
     return (
-      <div className='history'>
+      <Wrapper>
         {
           this.props.nodes.map((node, index) => {
             return (
@@ -17,7 +31,7 @@ class History extends React.Component {
             );
           })
         }
-      </div>
+      </Wrapper>
     );
   }
 }
