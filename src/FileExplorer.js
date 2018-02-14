@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -10,7 +11,55 @@ import Node from './components/Node';
 import * as ViewModes from './constants/viewModes';
 
 // Style
-import './index.css';
+const Wrapper = styled.div``;
+
+const NodesContainer = styled.div`
+  margin-top: 8px;
+  border: 1px solid;
+  padding: 8px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  overflow: auto;
+
+  &.no-history {
+    margin: 0;
+  }
+
+  &.list-mode {
+    min-height: 35px;
+    flex-direction: column;
+  }
+
+  &.icons-mode {
+    min-height: 70px;
+    flex-direction: row;
+  }
+`;
+
+const Menu = styled.div`
+  position: absolute;
+  top: 0;
+  background: white;
+  width: 100px;
+  border: 1px solid red;
+  padding: 8px;
+
+  > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      cursor: default;
+
+      &.selected {
+        background: red;
+      }
+    }
+  }
+`;
 
 class FileExplorer extends React.Component {
   constructor(props) {
@@ -132,7 +181,7 @@ class FileExplorer extends React.Component {
     });
 
     return (
-      <div className='container'>
+      <Wrapper>
         {
           showHistory &&
           <History
@@ -140,7 +189,7 @@ class FileExplorer extends React.Component {
             goToUpperLevel={this.goToUpperLevel} />
         }
 
-        <div className={classes} ref={component => this.node_container = component} onContextMenu={this.handleRightClick}>
+        <NodesContainer className={classes} innerRef={component => this.node_container = component} onContextMenu={this.handleRightClick}>
           {
             this.state.nodes.map((node, index) => {
               const selected = node.id === this.state.selected;
@@ -156,13 +205,12 @@ class FileExplorer extends React.Component {
               );
             })
           }
-        </div>
+        </NodesContainer>
 
         {
           this.state.visibleMenu &&
-          <div
-            ref={component => this.menu = component}
-            className='menu'
+          <Menu
+            innerRef={component => this.menu = component}
             style={{ top: `${this.state.position.y}px`, left: `${this.state.position.x}px` }}>
             <ul>
               <li
@@ -172,9 +220,9 @@ class FileExplorer extends React.Component {
                 onClick={() => this.toggleViewMode(ViewModes.ICONS)}
                 className={this.state.viewMode === ViewModes.ICONS && 'selected'}>Icons</li>
             </ul>
-          </div>
+          </Menu>
         }
-      </div>
+      </Wrapper>
     );
   }
 }
