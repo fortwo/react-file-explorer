@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -10,7 +11,50 @@ import fileIcon from '../../assets/file_icon.png';
 import folderIcon from '../../assets/folder_icon.png';
 
 // Style
-import './index.css';
+const Wrapper = styled.div`
+  display: flex;
+  cursor: default;
+  position: relative;
+  width: 33%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  &:hover {
+    background-color: lightseagreen;
+    color: white;
+  }
+
+  &.selected {
+    background-color: seagreen;
+    color: white;
+  }
+
+  &.list-mode {
+    flex-direction: row;
+
+    > .icon {
+      height: 16px;
+    }
+  }
+
+  &.icons-mode {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    > .icon {
+      height: 48px;
+    }
+  }
+
+  > .filename {
+    margin-left: 4px;
+  }
+`;
 
 class Node extends React.Component {
   constructor() {
@@ -39,26 +83,26 @@ class Node extends React.Component {
   }
 
   render() {
-    const { data, selected, onSingleClick } = this.props;
+    const { data, selected, onSingleClick, viewMode } = this.props;
     const isFolder = !!data.children;
 
     const classes = classNames({
-      'node': true,
       'file': !isFolder,
       'folder': isFolder,
       'selected': selected,
-      'noselect': true,
+      'list-mode': viewMode === ViewModes.LIST,
+      'icons-mode': viewMode === ViewModes.ICONS,
     });
 
     return (
-      <div
+      <Wrapper
         className={classes}
         onContextMenu={this.handleRightClick}
         onClick={() => onSingleClick(data.id)}
         onDoubleClick={() => this.handleDoubleClick(data)}>
         <img className='icon' src={isFolder ? folderIcon : fileIcon} />
         <div className='filename'>{data.name}</div>
-      </div>
+      </Wrapper>
     );
   }
 }

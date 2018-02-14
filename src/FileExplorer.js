@@ -154,7 +154,7 @@ class FileExplorer extends React.Component {
   }
 
   hideMenu(e) {
-    if (e.target !== this.menu && !this.menu.contains(e.target)) {
+    if (e.target !== this.menu && this.menu && !this.menu.contains(e.target)) {
       this.setState({
         visibleMenu: false,
         position: {},
