@@ -26,7 +26,7 @@ class History extends React.Component {
             return (
               <span 
                 key={index}
-                className='history_level'
+                className='history-level'
                 onClick={() => this.props.goToUpperLevel(node)}>{node.name}</span>
             );
           })
