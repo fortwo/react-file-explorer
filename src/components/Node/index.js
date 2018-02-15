@@ -15,13 +15,14 @@ const Wrapper = styled.div`
   display: flex;
   cursor: default;
   position: relative;
-  width: 33%;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  min-width: 150px;
+  width: 150px;
 
   &:hover {
     background-color: lightseagreen;
@@ -41,13 +42,26 @@ const Wrapper = styled.div`
     }
   }
 
-  &.icons-mode {
+  &.small-icons-mode, &.medium-icons-mode, &.large-icons-mode {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+  }
 
+  &.small-icons-mode {
+    > .icon {
+      height: 32px;
+    }
+  }
+
+  &.medium-icons-mode {
     > .icon {
       height: 48px;
+    }
+  }
+
+  &.large-icons-mode {
+    > .icon {
+      height: 72px;
     }
   }
 
@@ -91,7 +105,9 @@ class Node extends React.Component {
       'folder': isFolder,
       'selected': selected,
       'list-mode': viewMode === ViewModes.LIST,
-      'icons-mode': viewMode === ViewModes.ICONS,
+      'small-icons-mode': viewMode === ViewModes.SMALL_ICONS,
+      'medium-icons-mode': viewMode === ViewModes.MEDIUM_ICONS,
+      'large-icons-mode': viewMode === ViewModes.LARGE_ICONS,
     });
 
     return (
@@ -113,7 +129,7 @@ Node.propTypes = {
   goToDeeperLevel: PropTypes.func,
   selected: PropTypes.bool,
   handleRightClick: PropTypes.func,
-  viewMode: PropTypes.oneOf([ViewModes.LIST, ViewModes.ICONS]),
+  viewMode: PropTypes.oneOf([ViewModes.LIST, ViewModes.SMALL_ICONS, ViewModes.MEDIUM_ICONS, ViewModes.LARGE_ICONS]),
 };
 
 export default Node;

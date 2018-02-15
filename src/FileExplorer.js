@@ -32,8 +32,18 @@ const NodesContainer = styled.div`
     flex-direction: column;
   }
 
-  &.icons-mode {
+  &.small-icons-mode {
+    min-height: 40px;
+    flex-direction: row;
+  }
+
+  &.medium-icons-mode {
     min-height: 70px;
+    flex-direction: row;
+  }
+
+  &.large-icons-mode {
+    min-height: 100px;
     flex-direction: row;
   }
 `;
@@ -174,10 +184,11 @@ class FileExplorer extends React.Component {
     const { showHistory } = this.props;
 
     const classes = classNames({
-      'nodes-container': true,
       'no-history': !showHistory,
       'list-mode': this.state.viewMode === ViewModes.LIST,
-      'icons-mode': this.state.viewMode === ViewModes.ICONS,
+      'small-icons-mode': this.state.viewMode === ViewModes.SMALL_ICONS,
+      'medium-icons-mode': this.state.viewMode === ViewModes.MEDIUM_ICONS,
+      'large-icons-mode': this.state.viewMode === ViewModes.LARGE_ICONS,
     });
 
     return (
@@ -217,8 +228,14 @@ class FileExplorer extends React.Component {
                 onClick={() => this.toggleViewMode(ViewModes.LIST)}
                 className={this.state.viewMode === ViewModes.LIST && 'selected'}>List</li>
               <li
-                onClick={() => this.toggleViewMode(ViewModes.ICONS)}
-                className={this.state.viewMode === ViewModes.ICONS && 'selected'}>Icons</li>
+                onClick={() => this.toggleViewMode(ViewModes.SMALL_ICONS)}
+                className={this.state.viewMode === ViewModes.SMALL_ICONS && 'selected'}>Small Icons</li>
+              <li
+                onClick={() => this.toggleViewMode(ViewModes.MEDIUM_ICONS)}
+                className={this.state.viewMode === ViewModes.MEDIUM_ICONS && 'selected'}>Medium Icons</li>
+              <li
+                onClick={() => this.toggleViewMode(ViewModes.LARGE_ICONS)}
+                className={this.state.viewMode === ViewModes.LARGE_ICONS && 'selected'}>Large Icons</li>
             </ul>
           </Menu>
         }
