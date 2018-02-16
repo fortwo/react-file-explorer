@@ -6,6 +6,7 @@ import classNames from 'classnames';
 // Components
 import History from './components/History';
 import Node from './components/Node';
+import Menu from './components/Menu';
 
 // Constants
 import * as ViewModes from './constants/viewModes';
@@ -45,29 +46,6 @@ const NodesContainer = styled.div`
   &.large-icons-mode {
     min-height: 100px;
     flex-direction: row;
-  }
-`;
-
-const Menu = styled.div`
-  position: absolute;
-  top: 0;
-  background: white;
-  width: 100px;
-  border: 1px solid red;
-  padding: 8px;
-
-  > ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    > li {
-      cursor: default;
-
-      &.selected {
-        background: red;
-      }
-    }
   }
 `;
 
@@ -153,7 +131,7 @@ class FileExplorer extends React.Component {
 
     const position = {};
     if (e.target === this.node_container) {
-      position.x = e.clientX;
+      position.x = (e.clientX > (this.node_container.offsetWidth / 2)) ? e.clientX - 100 - 16: e.clientX;
       position.y = e.clientY;
     }
 
@@ -222,22 +200,9 @@ class FileExplorer extends React.Component {
           this.state.visibleMenu &&
           <Menu
             innerRef={component => this.menu = component}
-            style={{ top: `${this.state.position.y}px`, left: `${this.state.position.x}px` }}>
-            <ul>
-              <li
-                onClick={() => this.toggleViewMode(ViewModes.LIST)}
-                className={this.state.viewMode === ViewModes.LIST && 'selected'}>List</li>
-              <li
-                onClick={() => this.toggleViewMode(ViewModes.SMALL_ICONS)}
-                className={this.state.viewMode === ViewModes.SMALL_ICONS && 'selected'}>Small Icons</li>
-              <li
-                onClick={() => this.toggleViewMode(ViewModes.MEDIUM_ICONS)}
-                className={this.state.viewMode === ViewModes.MEDIUM_ICONS && 'selected'}>Medium Icons</li>
-              <li
-                onClick={() => this.toggleViewMode(ViewModes.LARGE_ICONS)}
-                className={this.state.viewMode === ViewModes.LARGE_ICONS && 'selected'}>Large Icons</li>
-            </ul>
-          </Menu>
+            position={this.state.position}
+            viewMode={this.state.viewMode}
+            toggleViewMode={this.toggleViewMode} />
         }
       </Wrapper>
     );
