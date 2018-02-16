@@ -199,7 +199,7 @@ class FileExplorer extends React.Component {
         {
           this.state.visibleMenu &&
           <Menu
-            innerRef={component => this.menu = component}
+            menuRef={component => this.menu = component}
             position={this.state.position}
             viewMode={this.state.viewMode}
             toggleViewMode={this.toggleViewMode} />

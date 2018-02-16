@@ -34,11 +34,11 @@ const FirstLevel = styled.ul`
 
 class Menu extends Component {
   render() {
-    const { position, viewMode } = this.props;
+    const { position, viewMode, menuRef } = this.props;
 
     return (
       <Wrapper
-        innerRef={component => this.menu = component}
+        innerRef={menuRef}
         top={position.y}
         left={position.x}>
 
