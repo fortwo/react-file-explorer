@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 // Constants
 import * as ViewModes from '../../constants/viewModes';
+import * as SortModes from '../../constants/sortModes';
 
 // Style
 const Wrapper = styled.div`
@@ -29,7 +30,7 @@ const FirstLevelWrapper = styled.ul`
       background: orange;
     }
 
-    &.selected {
+    & .selected {
       background: red;
     }
   }
@@ -62,7 +63,7 @@ const FirstLevelWrapper = styled.ul`
 
 class Menu extends Component {
   render() {
-    const { position, viewMode, menuRef } = this.props;
+    const { position, viewMode, sortMode, menuRef } = this.props;
 
     return (
       <Wrapper
@@ -92,10 +93,14 @@ class Menu extends Component {
           <li className='first-level'>
             <div>Sort by</div>
             <ul className='nested-level'>
-              <li>Name</li>
-              <li>Size</li>
-              <li>Type</li>
-              <li>Last edit</li>
+              <li onClick={() => this.props.handleSortModeChange(SortModes.NAME)}
+                className={sortMode === SortModes.NAME && 'selected'}>Name</li>
+              <li onClick={() => this.props.handleSortModeChange(SortModes.SIZE)}
+                className={sortMode === SortModes.SIZE && 'selected'}>Size</li>
+              <li onClick={() => this.props.handleSortModeChange(SortModes.TYPE)}
+                className={sortMode === SortModes.TYPE && 'selected'}>Type</li>
+              <li onClick={() => this.props.handleSortModeChange(SortModes.LAST_EDIT)}
+                className={sortMode === SortModes.LAST_EDIT && 'selected'}>Last edit</li>
             </ul>
           </li>
         </FirstLevelWrapper>
@@ -114,6 +119,8 @@ Menu.propTypes = {
   position: PropTypes.shape(PositionProp),
   viewMode: PropTypes.oneOf([ViewModes.LIST, ViewModes.SMALL_ICONS, ViewModes.MEDIUM_ICONS, ViewModes.LARGE_ICONS]),
   toggleViewMode: PropTypes.func,
+  sortMode: PropTypes.oneOf([SortModes.NAME, SortModes.SIZE, SortModes.TYPE, SortModes.LAST_EDIT]),
+  handleSortModeChange: PropTypes.func,
 };
 
 export default Menu;

@@ -10,6 +10,7 @@ import Menu from './components/Menu';
 
 // Constants
 import * as ViewModes from './constants/viewModes';
+import * as SortModes from './constants/sortModes';
 
 // Style
 const Wrapper = styled.div``;
@@ -57,10 +58,10 @@ class FileExplorer extends React.Component {
       history: [],
       nodes: [],
       selected: '',
-      position: 0,
       visibleMenu: false,
       position: {},
       viewMode: ViewModes.LIST,
+      sortMode: SortModes.NAME,
     };
 
     // History Methods
@@ -74,6 +75,7 @@ class FileExplorer extends React.Component {
 
     // Menu Methods
     this.toggleViewMode = this.toggleViewMode.bind(this);
+    this.handleSortModeChange = this.handleSortModeChange.bind(this);
   }
 
   componentDidMount() {
@@ -129,14 +131,18 @@ class FileExplorer extends React.Component {
   handleRightClick(e) {
     e.preventDefault();
 
-    const position = {};
+    const position = {
+      x: (e.clientX > (this.node_container.offsetWidth / 2)) ? e.clientX - 100 - 16: e.clientX,
+      y: e.clientY,
+    };
+
+    let visibleMenu = false;
     if (e.target === this.node_container) {
-      position.x = (e.clientX > (this.node_container.offsetWidth / 2)) ? e.clientX - 100 - 16: e.clientX;
-      position.y = e.clientY;
+      visibleMenu = true;
     }
 
     this.setState({
-      visibleMenu: true,
+      visibleMenu,
       position,
     });
   }
@@ -158,6 +164,49 @@ class FileExplorer extends React.Component {
         position: {},
       }, () => {
         this.props.onViewModeChange && this.props.onViewModeChange(this.state.viewMode);
+      });
+    }
+  }
+
+  handleSortModeChange(mode) {
+    if (mode !== this.state.sortMode) {
+      let nodes = this.state.nodes.slice();
+
+      switch (mode) {
+        case SortModes.NAME:
+          nodes.sort((nodeA, nodeB) => nodeA.name > nodeB.name);
+          break;
+
+        case SortModes.TYPE:
+          nodes.sort((nodeA, nodeB) => {
+            if (!nodeA.type) {
+              return false;
+            }
+
+            if (!nodeB.type) {
+              return true;
+            }
+
+            return (nodeA.type > nodeB.type);
+          });
+          break;
+
+        case SortModes.SIZE:
+          nodes.sort((nodeA, nodeB) => nodeA.size > nodeB.size);
+          break;
+
+        case SortModes.LAST_EDIT:
+          nodes.sort((nodeA, nodeB) => nodeA.lastEdit > nodeB.lastEdit);
+          break;
+      }
+
+      this.setState({
+        nodes,
+        sortMode: mode,
+        visibleMenu: false,
+        position: {},
+      }, () => {
+        this.props.onSortModeChange && this.props.onSortModeChange(this.state.sortMode, this.state.nodes);
       });
     }
   }
@@ -206,8 +255,12 @@ class FileExplorer extends React.Component {
             menuRef={component => this.menu = component}
             position={this.state.position}
             viewMode={this.state.viewMode}
-            toggleViewMode={this.toggleViewMode} />
+            toggleViewMode={this.toggleViewMode}
+            sortMode={this.state.sortMode}
+            handleSortModeChange={this.handleSortModeChange} />
         }
+
+
       </Wrapper>
     );
   }
