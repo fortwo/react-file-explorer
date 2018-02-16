@@ -151,11 +151,15 @@ class FileExplorer extends React.Component {
   }
 
   toggleViewMode(mode) {
-    this.setState({
-      viewMode: mode,
-      visibleMenu: false,
-      position: {},
-    });
+    if (mode !== this.state.viewMode) {
+      this.setState({
+        viewMode: mode,
+        visibleMenu: false,
+        position: {},
+      }, () => {
+        this.props.onViewModeChange && this.props.onViewModeChange(this.state.viewMode);
+      });
+    }
   }
 
   render() {
@@ -213,6 +217,7 @@ FileExplorer.propTypes = {
   data: PropTypes.array,
   showHistory: PropTypes.bool,
   rootLabel: PropTypes.string,
+  onViewModeChange: PropTypes.func,
 };
 
 FileExplorer.defaultProps = {
