@@ -44,22 +44,29 @@ const Wrapper = styled.div`
 
   &.small-icons-mode, &.medium-icons-mode, &.large-icons-mode {
     flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
 
   &.small-icons-mode {
+    height: 60px;
+
     > .icon {
       height: 32px;
     }
   }
 
   &.medium-icons-mode {
+    height: 76px;
+
     > .icon {
       height: 48px;
     }
   }
 
   &.large-icons-mode {
+    height: 100px;
+
     > .icon {
       height: 72px;
     }
