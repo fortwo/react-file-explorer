@@ -63,7 +63,12 @@ const FirstLevelWrapper = styled.ul`
 
 class Menu extends Component {
   render() {
-    const { position, viewMode, sortMode, menuRef } = this.props;
+    const {
+      position, viewMode, sortMode, menuRef,
+      sortableByName, sortableBySize, sortableByType, sortableByLastEdit,
+    } = this.props;
+
+    const sortable = sortableByName || sortableBySize || sortableByType || sortableByLastEdit;
 
     return (
       <Wrapper
@@ -90,19 +95,37 @@ class Menu extends Component {
             </ul>
           </li>
 
-          <li className='first-level'>
-            <div>Sort by</div>
-            <ul className='nested-level'>
-              <li onClick={() => this.props.handleSortModeChange(SortModes.NAME)}
-                className={sortMode === SortModes.NAME && 'selected'}>Name</li>
-              <li onClick={() => this.props.handleSortModeChange(SortModes.SIZE)}
-                className={sortMode === SortModes.SIZE && 'selected'}>Size</li>
-              <li onClick={() => this.props.handleSortModeChange(SortModes.TYPE)}
-                className={sortMode === SortModes.TYPE && 'selected'}>Type</li>
-              <li onClick={() => this.props.handleSortModeChange(SortModes.LAST_EDIT)}
-                className={sortMode === SortModes.LAST_EDIT && 'selected'}>Last edit</li>
-            </ul>
-          </li>
+          {
+            sortable &&
+            <li className='first-level'>
+              <div>Sort by</div>
+              <ul className='nested-level'>
+                {
+                  sortableByName &&
+                  <li onClick={() => this.props.handleSortModeChange(SortModes.NAME)}
+                    className={sortMode === SortModes.NAME && 'selected'}>Name</li>
+                }
+
+                {
+                  sortableBySize &&
+                  <li onClick={() => this.props.handleSortModeChange(SortModes.SIZE)}
+                    className={sortMode === SortModes.SIZE && 'selected'}>Size</li>
+                }
+
+                {
+                  sortableByType &&
+                  <li onClick={() => this.props.handleSortModeChange(SortModes.TYPE)}
+                    className={sortMode === SortModes.TYPE && 'selected'}>Type</li>
+                }
+
+                {
+                  sortableByLastEdit &&
+                  <li onClick={() => this.props.handleSortModeChange(SortModes.LAST_EDIT)}
+                    className={sortMode === SortModes.LAST_EDIT && 'selected'}>Last edit</li>
+                }
+              </ul>
+            </li>
+          }
         </FirstLevelWrapper>
 
       </Wrapper>
@@ -121,6 +144,17 @@ Menu.propTypes = {
   toggleViewMode: PropTypes.func,
   sortMode: PropTypes.oneOf([SortModes.NAME, SortModes.SIZE, SortModes.TYPE, SortModes.LAST_EDIT]),
   handleSortModeChange: PropTypes.func,
+  sortableByName: PropTypes.bool,
+  sortableBySize: PropTypes.bool,
+  sortableByType: PropTypes.bool,
+  sortableByLastEdit: PropTypes.bool,
+};
+
+Menu.defaultProps = {
+  sortableByName: true,
+  sortableBySize: true,
+  sortableByType: true,
+  sortableByLastEdit: true,
 };
 
 export default Menu;

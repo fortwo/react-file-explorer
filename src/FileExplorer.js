@@ -212,7 +212,14 @@ class FileExplorer extends React.Component {
   }
 
   render() {
-    const { showHistory } = this.props;
+    const { showHistory, sortableByName, sortableBySize, sortableByType, sortableByLastEdit } = this.props;
+
+    const menuProps = {
+      sortableByName,
+      sortableBySize,
+      sortableByType,
+      sortableByLastEdit,
+    };
 
     const classes = classNames({
       'no-history': !showHistory,
@@ -257,7 +264,8 @@ class FileExplorer extends React.Component {
             viewMode={this.state.viewMode}
             toggleViewMode={this.toggleViewMode}
             sortMode={this.state.sortMode}
-            handleSortModeChange={this.handleSortModeChange} />
+            handleSortModeChange={this.handleSortModeChange}
+            {...menuProps} />
         }
 
 
@@ -271,6 +279,13 @@ FileExplorer.propTypes = {
   showHistory: PropTypes.bool,
   rootLabel: PropTypes.string,
   onViewModeChange: PropTypes.func,
+  onSortModeChange: PropTypes.func,
+
+  // File Menu
+  sortableByName: PropTypes.bool,
+  sortableBySize: PropTypes.bool,
+  sortableByType: PropTypes.bool,
+  sortableByLastEdit: PropTypes.bool,
 };
 
 FileExplorer.defaultProps = {
