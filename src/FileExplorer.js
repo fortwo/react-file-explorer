@@ -55,8 +55,12 @@ class FileExplorer extends React.Component {
     super(props);
 
     this.state = {
-      history: [],
-      nodes: [],
+      history: [{
+        id: '/',
+        name: props.rootLabel,
+        children: props.data,
+      }],
+      nodes: props.data,
       selected: '',
       visibleMenu: false,
       position: {},
@@ -79,17 +83,6 @@ class FileExplorer extends React.Component {
   }
 
   componentDidMount() {
-    const history = [{
-      id: '/',
-      name: this.props.rootLabel,
-      children: this.props.data,
-    }];
-
-    this.setState({
-      history,
-      nodes: this.props.data,
-    });
-
     document.addEventListener('click', this.hideMenu);
   }
 
@@ -131,20 +124,19 @@ class FileExplorer extends React.Component {
   handleRightClick(e) {
     e.preventDefault();
 
-    const position = {
-      x: (e.clientX > (this.node_container.offsetWidth / 2)) ? e.clientX - 100 - 16: e.clientX,
-      y: e.clientY,
-    };
-
-    let visibleMenu = false;
     if (e.target === this.node_container) {
-      visibleMenu = true;
-    }
+      const position = {
+        x: (e.clientX > (this.node_container.offsetWidth / 2)) ? e.clientX - 100 - 16: e.clientX,
+        y: e.clientY,
+      };
 
-    this.setState({
-      visibleMenu,
-      position,
-    });
+      const visibleMenu = true;
+
+      this.setState({
+        visibleMenu,
+        position,
+      });
+    }
   }
 
   hideMenu(e) {
@@ -249,7 +241,6 @@ class FileExplorer extends React.Component {
                   onSingleClick={this.handleSingleClick}
                   goToDeeperLevel={this.goToDeeperLevel}
                   selected={selected}
-                  handleRightClick={this.handleRightClick}
                   viewMode={this.state.viewMode} />
               );
             })
@@ -265,9 +256,9 @@ class FileExplorer extends React.Component {
             toggleViewMode={this.toggleViewMode}
             sortMode={this.state.sortMode}
             handleSortModeChange={this.handleSortModeChange}
+            type='general'
             {...menuProps} />
         }
-
 
       </Wrapper>
     );

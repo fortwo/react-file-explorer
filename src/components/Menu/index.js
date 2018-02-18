@@ -64,7 +64,7 @@ const FirstLevelWrapper = styled.ul`
 class Menu extends Component {
   render() {
     const {
-      position, viewMode, sortMode, menuRef,
+      position, type, viewMode, sortMode, menuRef,
       sortableByName, sortableBySize, sortableByType, sortableByLastEdit,
     } = this.props;
 
@@ -76,58 +76,69 @@ class Menu extends Component {
         top={position.y}
         left={position.x}>
 
-        <FirstLevelWrapper>
-          <li className='first-level'>
-            <div>View</div>
-            <ul className='nested-level'>
-              <li
-                onClick={() => this.props.toggleViewMode(ViewModes.LIST)}
-                className={viewMode === ViewModes.LIST && 'selected'}>List</li>
-              <li
-                onClick={() => this.props.toggleViewMode(ViewModes.SMALL_ICONS)}
-                className={viewMode === ViewModes.SMALL_ICONS && 'selected'}>Small Icons</li>
-              <li
-                onClick={() => this.props.toggleViewMode(ViewModes.MEDIUM_ICONS)}
-                className={viewMode === ViewModes.MEDIUM_ICONS && 'selected'}>Medium Icons</li>
-              <li
-                onClick={() => this.props.toggleViewMode(ViewModes.LARGE_ICONS)}
-                className={viewMode === ViewModes.LARGE_ICONS && 'selected'}>Large Icons</li>
-            </ul>
-          </li>
-
-          {
-            sortable &&
+        {
+          type === 'general' &&
+          <FirstLevelWrapper>
             <li className='first-level'>
-              <div>Sort by</div>
+              <div>View</div>
               <ul className='nested-level'>
-                {
-                  sortableByName &&
-                  <li onClick={() => this.props.handleSortModeChange(SortModes.NAME)}
-                    className={sortMode === SortModes.NAME && 'selected'}>Name</li>
-                }
-
-                {
-                  sortableBySize &&
-                  <li onClick={() => this.props.handleSortModeChange(SortModes.SIZE)}
-                    className={sortMode === SortModes.SIZE && 'selected'}>Size</li>
-                }
-
-                {
-                  sortableByType &&
-                  <li onClick={() => this.props.handleSortModeChange(SortModes.TYPE)}
-                    className={sortMode === SortModes.TYPE && 'selected'}>Type</li>
-                }
-
-                {
-                  sortableByLastEdit &&
-                  <li onClick={() => this.props.handleSortModeChange(SortModes.LAST_EDIT)}
-                    className={sortMode === SortModes.LAST_EDIT && 'selected'}>Last edit</li>
-                }
+                <li
+                  onClick={() => this.props.toggleViewMode(ViewModes.LIST)}
+                  className={viewMode === ViewModes.LIST && 'selected'}>List</li>
+                <li
+                  onClick={() => this.props.toggleViewMode(ViewModes.SMALL_ICONS)}
+                  className={viewMode === ViewModes.SMALL_ICONS && 'selected'}>Small Icons</li>
+                <li
+                  onClick={() => this.props.toggleViewMode(ViewModes.MEDIUM_ICONS)}
+                  className={viewMode === ViewModes.MEDIUM_ICONS && 'selected'}>Medium Icons</li>
+                <li
+                  onClick={() => this.props.toggleViewMode(ViewModes.LARGE_ICONS)}
+                  className={viewMode === ViewModes.LARGE_ICONS && 'selected'}>Large Icons</li>
               </ul>
             </li>
-          }
-        </FirstLevelWrapper>
 
+            {
+              sortable &&
+              <li className='first-level'>
+                <div>Sort by</div>
+                <ul className='nested-level'>
+                  {
+                    sortableByName &&
+                    <li onClick={() => this.props.handleSortModeChange(SortModes.NAME)}
+                      className={sortMode === SortModes.NAME && 'selected'}>Name</li>
+                  }
+
+                  {
+                    sortableBySize &&
+                    <li onClick={() => this.props.handleSortModeChange(SortModes.SIZE)}
+                      className={sortMode === SortModes.SIZE && 'selected'}>Size</li>
+                  }
+
+                  {
+                    sortableByType &&
+                    <li onClick={() => this.props.handleSortModeChange(SortModes.TYPE)}
+                      className={sortMode === SortModes.TYPE && 'selected'}>Type</li>
+                  }
+
+                  {
+                    sortableByLastEdit &&
+                    <li onClick={() => this.props.handleSortModeChange(SortModes.LAST_EDIT)}
+                      className={sortMode === SortModes.LAST_EDIT && 'selected'}>Last edit</li>
+                  }
+                </ul>
+              </li>
+            }
+          </FirstLevelWrapper>
+        }
+
+        {
+          type === 'file' &&
+          <FirstLevelWrapper>
+            <li className='first-level'>Download</li>
+            <li className='first-level'>Rename</li>
+            <li className='first-level'>Delete</li>
+          </FirstLevelWrapper>
+        }
       </Wrapper>
     );
   }
@@ -148,6 +159,7 @@ Menu.propTypes = {
   sortableBySize: PropTypes.bool,
   sortableByType: PropTypes.bool,
   sortableByLastEdit: PropTypes.bool,
+  type: PropTypes.oneOf(['general', 'file']),
 };
 
 Menu.defaultProps = {
@@ -155,6 +167,7 @@ Menu.defaultProps = {
   sortableBySize: true,
   sortableByType: true,
   sortableByLastEdit: true,
+  type: 'general',
 };
 
 export default Menu;
