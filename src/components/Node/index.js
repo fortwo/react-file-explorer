@@ -14,7 +14,6 @@ import folderIcon from '../../assets/folder_icon.png';
 const Wrapper = styled.div`
   display: flex;
   cursor: default;
-  position: relative;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -81,26 +80,21 @@ class Node extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      visibleMenu: false,
-    };
-
-    this.handleRightClick = this.handleRightClick.bind(this);
     this.handleDoubleClick = this.handleDoubleClick.bind(this);
-  }
-
-  handleRightClick(e) {
-    e.preventDefault();
-
-    // e.target.offsetTop
-
-    //this.props.handleRightClick({ x: e.clientX, y: e.target.offsetTop });
+    this.handleRightClick = this.handleRightClick.bind(this);
   }
 
   handleDoubleClick(data) {
     if (data.children) {
       this.props.goToDeeperLevel(data)
     }
+  }
+
+  handleRightClick(e, id) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    this.props.onRightClick(e, id);
   }
 
   render() {
@@ -119,10 +113,11 @@ class Node extends React.Component {
 
     return (
       <Wrapper
+        id={data.id}
         className={classes}
-        onContextMenu={this.handleRightClick}
         onClick={() => onSingleClick(data.id)}
-        onDoubleClick={() => this.handleDoubleClick(data)}>
+        onDoubleClick={() => this.handleDoubleClick(data)}
+        onContextMenu={(e) => this.handleRightClick(e, data.id)}>
         <img className='icon' src={isFolder ? folderIcon : fileIcon} />
         <div className='filename'>{data.name}</div>
       </Wrapper>
@@ -135,8 +130,8 @@ Node.propTypes = {
   onSingleClick: PropTypes.func,
   goToDeeperLevel: PropTypes.func,
   selected: PropTypes.bool,
-  handleRightClick: PropTypes.func,
   viewMode: PropTypes.oneOf([ViewModes.LIST, ViewModes.SMALL_ICONS, ViewModes.MEDIUM_ICONS, ViewModes.LARGE_ICONS]),
+  onRightClick: PropTypes.func,
 };
 
 export default Node;

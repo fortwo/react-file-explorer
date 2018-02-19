@@ -66,6 +66,7 @@ class FileExplorer extends React.Component {
       position: {},
       viewMode: ViewModes.LIST,
       sortMode: SortModes.NAME,
+      type: 'general',
     };
 
     // History Methods
@@ -75,6 +76,7 @@ class FileExplorer extends React.Component {
     this.handleSingleClick = this.handleSingleClick.bind(this);
     this.goToDeeperLevel = this.goToDeeperLevel.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
+    this.handleNodeRightClick = this.handleNodeRightClick.bind(this);
     this.hideMenu = this.hideMenu.bind(this);
 
     // Menu Methods
@@ -130,13 +132,25 @@ class FileExplorer extends React.Component {
         y: e.clientY,
       };
 
-      const visibleMenu = true;
-
       this.setState({
-        visibleMenu,
+        visibleMenu: true,
         position,
+        type: 'general',
       });
     }
+  }
+
+  handleNodeRightClick(e, id) {
+    const position = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+
+    this.setState({
+      visibleMenu: true,
+      position,
+      type: 'file',
+    });
   }
 
   hideMenu(e) {
@@ -211,6 +225,7 @@ class FileExplorer extends React.Component {
       sortableBySize,
       sortableByType,
       sortableByLastEdit,
+      type: this.state.type,
     };
 
     const classes = classNames({
@@ -241,7 +256,8 @@ class FileExplorer extends React.Component {
                   onSingleClick={this.handleSingleClick}
                   goToDeeperLevel={this.goToDeeperLevel}
                   selected={selected}
-                  viewMode={this.state.viewMode} />
+                  viewMode={this.state.viewMode}
+                  onRightClick={this.handleNodeRightClick} />
               );
             })
           }
@@ -256,7 +272,6 @@ class FileExplorer extends React.Component {
             toggleViewMode={this.toggleViewMode}
             sortMode={this.state.sortMode}
             handleSortModeChange={this.handleSortModeChange}
-            type='general'
             {...menuProps} />
         }
 
