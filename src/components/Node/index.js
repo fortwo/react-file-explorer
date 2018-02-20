@@ -35,9 +35,15 @@ const Wrapper = styled.div`
 
   &.list-mode {
     flex-direction: row;
+    align-items: center;
 
     > .icon {
       height: 16px;
+    }
+
+    > .filename-input {
+      margin-left: 4px;
+      height: 18px;
     }
   }
 
@@ -45,6 +51,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    > .filename-input {
+      margin: 0;
+    }
   }
 
   &.small-icons-mode {
@@ -77,8 +87,12 @@ const Wrapper = styled.div`
 `;
 
 class Node extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: props.data && props.data.name,
+    };
 
     this.handleDoubleClick = this.handleDoubleClick.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
@@ -98,7 +112,7 @@ class Node extends React.Component {
   }
 
   render() {
-    const { data, selected, onSingleClick, viewMode } = this.props;
+    const { data, selected, onSingleClick, viewMode, renaming } = this.props;
     const isFolder = !!data.children;
 
     const classes = classNames({
@@ -119,7 +133,17 @@ class Node extends React.Component {
         onDoubleClick={() => this.handleDoubleClick(data)}
         onContextMenu={(e) => this.handleRightClick(e, data.id)}>
         <img className='icon' src={isFolder ? folderIcon : fileIcon} />
-        <div className='filename'>{data.name}</div>
+
+        {
+          renaming ?
+          <input
+            className='filename-input'
+            type="text"
+            value={this.state.name}
+            onChange={(e) => this.setState({ name: e.target.value })} />
+          :
+          <div className='filename'>{data.name}</div>
+        }
       </Wrapper>
     );
   }
@@ -132,6 +156,7 @@ Node.propTypes = {
   selected: PropTypes.bool,
   viewMode: PropTypes.oneOf([ViewModes.LIST, ViewModes.SMALL_ICONS, ViewModes.MEDIUM_ICONS, ViewModes.LARGE_ICONS]),
   onRightClick: PropTypes.func,
+  renaming: PropTypes.bool,
 };
 
 export default Node;

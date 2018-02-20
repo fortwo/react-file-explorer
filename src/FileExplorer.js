@@ -67,6 +67,7 @@ class FileExplorer extends React.Component {
       viewMode: ViewModes.LIST,
       sortMode: SortModes.NAME,
       type: 'general',
+      renaming: '',
     };
 
     // History Methods
@@ -82,6 +83,7 @@ class FileExplorer extends React.Component {
     // Menu Methods
     this.toggleViewMode = this.toggleViewMode.bind(this);
     this.handleSortModeChange = this.handleSortModeChange.bind(this);
+    this.handleRename = this.handleRename.bind(this);
   }
 
   componentDidMount() {
@@ -136,6 +138,7 @@ class FileExplorer extends React.Component {
         visibleMenu: true,
         position,
         type: 'general',
+        selected: '',
       });
     }
   }
@@ -150,6 +153,7 @@ class FileExplorer extends React.Component {
       visibleMenu: true,
       position,
       type: 'file',
+      selected: id,
     });
   }
 
@@ -217,6 +221,14 @@ class FileExplorer extends React.Component {
     }
   }
 
+  handleRename() {
+    this.setState({
+      visibleMenu: false,
+      position: {},
+      renaming: this.state.selected,
+    });
+  }
+
   render() {
     const { showHistory, sortableByName, sortableBySize, sortableByType, sortableByLastEdit } = this.props;
 
@@ -226,6 +238,7 @@ class FileExplorer extends React.Component {
       sortableByType,
       sortableByLastEdit,
       type: this.state.type,
+      onRename: this.handleRename,
     };
 
     const classes = classNames({
@@ -249,6 +262,7 @@ class FileExplorer extends React.Component {
           {
             this.state.nodes.map((node, index) => {
               const selected = node.id === this.state.selected;
+              const renaming = node.id === this.state.renaming;
 
               return (
                 <Node key={node.id}
@@ -257,7 +271,9 @@ class FileExplorer extends React.Component {
                   goToDeeperLevel={this.goToDeeperLevel}
                   selected={selected}
                   viewMode={this.state.viewMode}
-                  onRightClick={this.handleNodeRightClick} />
+                  onRightClick={this.handleNodeRightClick}
+                  renaming={renaming}
+                  onRename={this.handleRename} />
               );
             })
           }

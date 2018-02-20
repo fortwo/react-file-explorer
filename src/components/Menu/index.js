@@ -135,7 +135,8 @@ class Menu extends Component {
           type === 'file' &&
           <FirstLevelWrapper>
             <li className='first-level'>Download</li>
-            <li className='first-level'>Rename</li>
+            <li onClick={() => this.props.onRename()}
+              className='first-level'>Rename</li>
             <li className='first-level'>Delete</li>
           </FirstLevelWrapper>
         }
@@ -160,6 +161,7 @@ Menu.propTypes = {
   sortableByType: PropTypes.bool,
   sortableByLastEdit: PropTypes.bool,
   type: PropTypes.oneOf(['general', 'file']),
+  onRename: PropTypes.func,
 };
 
 Menu.defaultProps = {
