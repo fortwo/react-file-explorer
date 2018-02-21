@@ -86,6 +86,10 @@ const Wrapper = styled.div`
   }
 `;
 
+const RenamingForm = styled.form`
+  margin: 0;
+`;
+
 class Node extends React.Component {
   constructor(props) {
     super(props);
@@ -96,6 +100,7 @@ class Node extends React.Component {
 
     this.handleDoubleClick = this.handleDoubleClick.bind(this);
     this.handleRightClick = this.handleRightClick.bind(this);
+    this.handleRenameSubmit = this.handleRenameSubmit.bind(this);
   }
 
   handleDoubleClick(data) {
@@ -109,6 +114,13 @@ class Node extends React.Component {
     e.preventDefault();
 
     this.props.onRightClick(e, id);
+  }
+
+  handleRenameSubmit(e) {
+    e.preventDefault();
+
+    const { data, onRenameSubmit } = this.props;
+    onRenameSubmit(data.id, this.state.name);
   }
 
   render() {
@@ -136,11 +148,13 @@ class Node extends React.Component {
 
         {
           renaming ?
-          <input
-            className='filename-input'
-            type="text"
-            value={this.state.name}
-            onChange={(e) => this.setState({ name: e.target.value })} />
+          <RenamingForm onSubmit={this.handleRenameSubmit}>
+            <input
+              className='filename-input'
+              type="text"
+              value={this.state.name}
+              onChange={(e) => this.setState({ name: e.target.value })} />
+          </RenamingForm>
           :
           <div className='filename'>{data.name}</div>
         }
@@ -157,6 +171,7 @@ Node.propTypes = {
   viewMode: PropTypes.oneOf([ViewModes.LIST, ViewModes.SMALL_ICONS, ViewModes.MEDIUM_ICONS, ViewModes.LARGE_ICONS]),
   onRightClick: PropTypes.func,
   renaming: PropTypes.bool,
+  onRenameSubmit: PropTypes.func,
 };
 
 export default Node;

@@ -84,6 +84,9 @@ class FileExplorer extends React.Component {
     this.toggleViewMode = this.toggleViewMode.bind(this);
     this.handleSortModeChange = this.handleSortModeChange.bind(this);
     this.handleRename = this.handleRename.bind(this);
+
+    // Callbacks
+    this.handleRenameSubmit = this.handleRenameSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -229,6 +232,14 @@ class FileExplorer extends React.Component {
     });
   }
 
+  handleRenameSubmit(id, name) {
+    const { onRename } = this.props;
+
+    if (onRename) {
+      onRename(id, name);
+    }
+  }
+
   render() {
     const { showHistory, sortableByName, sortableBySize, sortableByType, sortableByLastEdit } = this.props;
 
@@ -273,7 +284,7 @@ class FileExplorer extends React.Component {
                   viewMode={this.state.viewMode}
                   onRightClick={this.handleNodeRightClick}
                   renaming={renaming}
-                  onRename={this.handleRename} />
+                  onRenameSubmit={this.handleRenameSubmit} />
               );
             })
           }
@@ -308,6 +319,8 @@ FileExplorer.propTypes = {
   sortableBySize: PropTypes.bool,
   sortableByType: PropTypes.bool,
   sortableByLastEdit: PropTypes.bool,
+
+  onRename: PropTypes.func,
 };
 
 FileExplorer.defaultProps = {
