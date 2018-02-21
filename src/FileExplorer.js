@@ -89,14 +89,6 @@ class FileExplorer extends React.Component {
     this.handleRenameSubmit = this.handleRenameSubmit.bind(this);
   }
 
-  componentDidMount() {
-    document.addEventListener('click', this.hideMenu);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.hideMenu);
-  }
-
   // History Methods
   goToUpperLevel(node) {
     const index = this.state.history.findIndex(level => level.id === node.id);
@@ -160,13 +152,11 @@ class FileExplorer extends React.Component {
     });
   }
 
-  hideMenu(e) {
-    if (e.target !== this.menu && this.menu && !this.menu.contains(e.target)) {
-      this.setState({
-        visibleMenu: false,
-        position: {},
-      });
-    }
+  hideMenu() {
+    this.setState({
+      visibleMenu: false,
+      position: {},
+    });
   }
 
   toggleViewMode(mode) {
@@ -303,6 +293,7 @@ class FileExplorer extends React.Component {
             toggleViewMode={this.toggleViewMode}
             sortMode={this.state.sortMode}
             handleSortModeChange={this.handleSortModeChange}
+            handleClickOutside={this.hideMenu}
             {...menuProps} />
         }
 

@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import * as ViewModes from '../../constants/viewModes';
 import * as SortModes from '../../constants/sortModes';
 
+// HoC
+import enhanceWithClickOutside from 'react-click-outside';
+
 // Style
 const Wrapper = styled.div`
   position: absolute;
@@ -62,6 +65,16 @@ const FirstLevelWrapper = styled.ul`
 `;
 
 class Menu extends Component {
+  constructor() {
+    super();
+
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+
+  handleClickOutside() {
+    this.props.handleClickOutside();
+  }
+
   render() {
     const {
       position, type, viewMode, sortMode, menuRef,
@@ -151,6 +164,7 @@ const PositionProp = {
 };
 
 Menu.propTypes = {
+  handleClickOutside: PropTypes.func,
   position: PropTypes.shape(PositionProp),
   viewMode: PropTypes.oneOf([ViewModes.LIST, ViewModes.SMALL_ICONS, ViewModes.MEDIUM_ICONS, ViewModes.LARGE_ICONS]),
   toggleViewMode: PropTypes.func,
@@ -172,4 +186,4 @@ Menu.defaultProps = {
   type: 'general',
 };
 
-export default Menu;
+export default enhanceWithClickOutside(Menu);
