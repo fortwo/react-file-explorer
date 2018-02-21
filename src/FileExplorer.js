@@ -235,6 +235,10 @@ class FileExplorer extends React.Component {
   handleRenameSubmit(id, name) {
     const { onRename } = this.props;
 
+    this.setState({
+      renaming: '',
+    });
+
     if (onRename) {
       onRename(id, name);
     }

@@ -103,6 +103,15 @@ class Node extends React.Component {
     this.handleRenameSubmit = this.handleRenameSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    // Reset state after rename
+    if (nextProps.renaming !== this.props.renaming && !nextProps.renaming) {
+      this.setState({
+        name: nextProps.data && nextProps.data.name,
+      });
+    }
+  }
+
   handleDoubleClick(data) {
     if (data.children) {
       this.props.goToDeeperLevel(data)
