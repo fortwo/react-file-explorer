@@ -84,6 +84,7 @@ class FileExplorer extends React.Component {
     // Menu Methods
     this.toggleViewMode = this.toggleViewMode.bind(this);
     this.handleSortModeChange = this.handleSortModeChange.bind(this);
+    this.handleDownload = this.handleDownload.bind(this);
     this.handleRename = this.handleRename.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
 
@@ -216,6 +217,15 @@ class FileExplorer extends React.Component {
     }
   }
 
+  handleDownload() {
+    this.setState({
+      visibleMenu: false,
+      position: {},
+    });
+
+    this.props.onDownload(this.state.selected);
+  }
+
   handleRename() {
     this.setState({
       visibleMenu: false,
@@ -257,6 +267,7 @@ class FileExplorer extends React.Component {
       type: this.state.type,
       onRename: this.handleRename,
       onDelete: this.handleDelete,
+      onDownload: this.handleDownload,
     };
 
     const classes = classNames({
