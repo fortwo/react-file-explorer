@@ -68,6 +68,7 @@ class FileExplorer extends React.Component {
       sortMode: SortModes.NAME,
       type: 'general',
       renaming: '',
+      deleting: '',
     };
 
     // History Methods
@@ -84,6 +85,7 @@ class FileExplorer extends React.Component {
     this.toggleViewMode = this.toggleViewMode.bind(this);
     this.handleSortModeChange = this.handleSortModeChange.bind(this);
     this.handleRename = this.handleRename.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
 
     // Callbacks
     this.handleRenameSubmit = this.handleRenameSubmit.bind(this);
@@ -234,6 +236,16 @@ class FileExplorer extends React.Component {
     }
   }
 
+  handleDelete() {
+    this.setState({
+      visibleMenu: false,
+      position: {},
+      deleting: this.state.selected,
+    });
+
+    this.props.onDelete(this.state.selected);
+  }
+
   render() {
     const { showHistory, sortableByName, sortableBySize, sortableByType, sortableByLastEdit } = this.props;
 
@@ -244,6 +256,7 @@ class FileExplorer extends React.Component {
       sortableByLastEdit,
       type: this.state.type,
       onRename: this.handleRename,
+      onDelete: this.handleDelete,
     };
 
     const classes = classNames({
@@ -268,6 +281,7 @@ class FileExplorer extends React.Component {
             this.state.nodes.map((node, index) => {
               const selected = node.id === this.state.selected;
               const renaming = node.id === this.state.renaming;
+
 
               return (
                 <Node key={node.id}
@@ -316,6 +330,7 @@ FileExplorer.propTypes = {
   sortableByLastEdit: PropTypes.bool,
 
   onRename: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 FileExplorer.defaultProps = {
