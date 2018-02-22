@@ -10,6 +10,9 @@ import * as ViewModes from '../../constants/viewModes';
 import fileIcon from '../../assets/file_icon.png';
 import folderIcon from '../../assets/folder_icon.png';
 
+// Components
+import RenamingForm from '../RenamingForm';
+
 // Style
 const Wrapper = styled.div`
   display: flex;
@@ -40,21 +43,12 @@ const Wrapper = styled.div`
     > .icon {
       height: 16px;
     }
-
-    > .filename-input {
-      margin-left: 4px;
-      height: 18px;
-    }
   }
 
   &.small-icons-mode, &.medium-icons-mode, &.large-icons-mode {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    > .filename-input {
-      margin: 0;
-    }
   }
 
   &.small-icons-mode {
@@ -84,10 +78,6 @@ const Wrapper = styled.div`
   > .filename {
     margin-left: 4px;
   }
-`;
-
-const RenamingForm = styled.form`
-  margin: 0;
 `;
 
 class Node extends React.Component {
@@ -136,11 +126,13 @@ class Node extends React.Component {
     const { data, selected, onSingleClick, viewMode, renaming } = this.props;
     const isFolder = !!data.children;
 
+    const listView = viewMode === ViewModes.LIST;
+
     const classes = classNames({
       'file': !isFolder,
       'folder': isFolder,
       'selected': selected,
-      'list-mode': viewMode === ViewModes.LIST,
+      'list-mode': listView,
       'small-icons-mode': viewMode === ViewModes.SMALL_ICONS,
       'medium-icons-mode': viewMode === ViewModes.MEDIUM_ICONS,
       'large-icons-mode': viewMode === ViewModes.LARGE_ICONS,
@@ -157,13 +149,12 @@ class Node extends React.Component {
 
         {
           renaming ?
-          <RenamingForm onSubmit={this.handleRenameSubmit}>
-            <input
-              className='filename-input'
-              type="text"
-              value={this.state.name}
-              onChange={(e) => this.setState({ name: e.target.value })} />
-          </RenamingForm>
+          <RenamingForm 
+            listView={listView}
+            value={this.state.name} 
+            onChange={(e) => this.setState({ name: e.target.value })}
+            onSubmit={this.handleRenameSubmit} 
+            onClickOutside={this.handleRenameSubmit} />
           :
           <div className='filename'>{data.name}</div>
         }
