@@ -293,7 +293,6 @@ class FileExplorer extends React.Component {
               const selected = node.id === this.state.selected;
               const renaming = node.id === this.state.renaming;
 
-
               return (
                 <Node key={node.id}
                   data={node}
@@ -312,7 +311,6 @@ class FileExplorer extends React.Component {
         {
           this.state.visibleMenu &&
           <Menu
-            menuRef={component => this.menu = component}
             position={this.state.position}
             viewMode={this.state.viewMode}
             toggleViewMode={this.toggleViewMode}
