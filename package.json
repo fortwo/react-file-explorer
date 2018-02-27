@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot",
-    "build": "webpack --config ./webpack.config.babel.js"
+    "build": "webpack --config ./webpack.config.babel.js",
+    "build:prod": "webpack --config ./webpack.prod.babel.js"
   },
   "repository": {
     "type": "git",
