@@ -1,0 +1,7 @@
+src/
+demo/
+node_modules/
+.babelrc
+index.html
+webpack.config.babel.js
+webpack.prod.babel.js
