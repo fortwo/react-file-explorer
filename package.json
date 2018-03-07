@@ -2,7 +2,7 @@
   "name": "react-file-explorer",
   "version": "0.0.0",
   "description": "Customizable and responsive file explorer component for React applications.",
-  "main": "index.js",
+  "main": "/lib/react-file-explorer.js",
   "scripts": {
     "start": "webpack-dev-server --hot",
     "build": "webpack --config ./webpack.config.babel.js",
@@ -25,12 +25,11 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",
-    "file-loader": "^1.1.6",
-    "html-webpack-plugin": "^2.30.1",
     "image-webpack-loader": "^4.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "style-loader": "^0.18.2",
+    "url-loader": "^1.0.1",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
   },

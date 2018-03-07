@@ -3,14 +3,13 @@ import webpack from 'webpack';
 
 // Plugins
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const options = {
-  entry: './example/index.js',
+  entry: './demo/index.js',
   output: {
-    path: path.join(__dirname, 'example'),
+    path: path.join(__dirname, 'demo'),
     filename: 'bundle.js',
-    publicPath: '/example/',
+    publicPath: '/demo/',
   },
   module: {
     loaders: [
@@ -28,7 +27,14 @@ const options = {
       },
       {
         test: /\.(jpg|png|gif)$/,
-        loader: 'file-loader',
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            },
+          },
+        ],
       },
       {
         test: /\.(jpg|png|gif)$/,
@@ -42,17 +48,13 @@ const options = {
     ]
   },
   devServer: {
-    contentBase: path.join(__dirname, 'example'),
-    publicPath: '/example/',
+    contentBase: path.join(__dirname, 'demo'),
+    publicPath: '/demo/',
     port: 3001,
     hot: true,
   },
   plugins: [
     new ExtractTextPlugin('[name].css'),
-    new HtmlWebpackPlugin({
-      title: 'React File Explorer',
-      template: './index.html',
-    }),
   ],
 };
 

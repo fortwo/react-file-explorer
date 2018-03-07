@@ -6,13 +6,15 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const options = {
   entry: {
-    'build': './src/FileExplorer.js',
-    'build.min': './src/FileExplorer.js',
+    'react-file-explorer': './src/FileExplorer.js',
+    'react-file-explorer.min': './src/FileExplorer.js',
   },
   output: {
     path: path.join(__dirname, 'lib'),
     filename: '[name].js',
-    publicPath: '/lib/',
+    publicPath: '/',
+    library: 'ReactFileExplorer',
+    libraryTarget: 'umd',
   },
   module: {
     loaders: [
@@ -30,7 +32,14 @@ const options = {
       },
       {
         test: /\.(jpg|png|gif)$/,
-        loader: 'file-loader',
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            },
+          },
+        ],
       },
       {
         test: /\.(jpg|png|gif)$/,
