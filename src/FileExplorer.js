@@ -257,7 +257,7 @@ class FileExplorer extends React.Component {
   }
 
   render() {
-    const { showHistory, sortableByName, sortableBySize, sortableByType, sortableByLastEdit } = this.props;
+    const { className, showHistory, sortableByName, sortableBySize, sortableByType, sortableByLastEdit } = this.props;
 
     const menuProps = {
       sortableByName,
@@ -279,7 +279,7 @@ class FileExplorer extends React.Component {
     });
 
     return (
-      <Wrapper>
+      <Wrapper className={className}>
         {
           showHistory &&
           <History
@@ -326,6 +326,7 @@ class FileExplorer extends React.Component {
 }
 
 FileExplorer.propTypes = {
+  className: PropTypes.object,
   data: PropTypes.array,
   showHistory: PropTypes.bool,
   rootLabel: PropTypes.string,
