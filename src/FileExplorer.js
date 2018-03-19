@@ -326,7 +326,10 @@ class FileExplorer extends React.Component {
 }
 
 FileExplorer.propTypes = {
-  className: PropTypes.object,
+  className: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   data: PropTypes.array,
   showHistory: PropTypes.bool,
   rootLabel: PropTypes.string,
