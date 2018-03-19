@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 class History extends React.Component {
   render() {
     return (
-      <Wrapper>
+      <Wrapper className='history'>
         {
           this.props.nodes.map((node, index) => {
             return (

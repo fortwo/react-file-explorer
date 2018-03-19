@@ -25,11 +25,12 @@ class RenamingForm extends Component {
     const {  listView, onSubmit, value, onChange } = this.props;
 
     return (
-      <Wrapper listView={listView} onSubmit={onSubmit}>
+      <Wrapper listView={listView} onSubmit={onSubmit} className='renaming-form'>
         <input
           type="text"
           value={value}
-          onChange={onChange} />
+          onChange={onChange}
+          className='renaming-form-input' />
       </Wrapper>
     );
   }

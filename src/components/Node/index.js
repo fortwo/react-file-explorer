@@ -141,7 +141,7 @@ class Node extends React.Component {
     return (
       <Wrapper
         id={data.id}
-        className={classes}
+        className={`node ${classes}`}
         onClick={() => onSingleClick(data.id)}
         onDoubleClick={() => this.handleDoubleClick(data)}
         onContextMenu={(e) => this.handleRightClick(e, data.id)}>

@@ -88,7 +88,8 @@ class Menu extends Component {
     return (
       <Wrapper
         top={position.y}
-        left={position.x}>
+        left={position.x}
+        className='menu'>
 
         {
           type === 'general' &&
