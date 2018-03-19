@@ -279,7 +279,7 @@ class FileExplorer extends React.Component {
     });
 
     return (
-      <Wrapper className={className}>
+      <Wrapper className={`container ${className}`}>
         {
           showHistory &&
           <History
