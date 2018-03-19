@@ -12543,7 +12543,7 @@ var LAST_EDIT = exports.LAST_EDIT = 'last-edit';
 "use strict";
 
 
-var _templateObject = _taggedTemplateLiteral(['\n  background: red;\n'], ['\n  background: red;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n  background: lightgreen;\n\n  & .history {\n    background: orange;\n  }\n\n  & .history-level {\n    background: yellow;\n    font-size: 23px;\n\n    &:hover {\n      background: green;\n    }\n  }\n\n  & .node {\n    background: lightblue;\n\n    & .renaming-form input {\n      background: black;\n      color: white;\n    }\n  }\n'], ['\n  background: lightgreen;\n\n  & .history {\n    background: orange;\n  }\n\n  & .history-level {\n    background: yellow;\n    font-size: 23px;\n\n    &:hover {\n      background: green;\n    }\n  }\n\n  & .node {\n    background: lightblue;\n\n    & .renaming-form input {\n      background: black;\n      color: white;\n    }\n  }\n']);
 
 var _react = __webpack_require__(13);
 
@@ -26911,7 +26911,7 @@ var History = function (_React$Component) {
 
       return _react2.default.createElement(
         Wrapper,
-        null,
+        { className: 'history' },
         this.props.nodes.map(function (node, index) {
           return _react2.default.createElement(
             'span',
@@ -27093,7 +27093,7 @@ var Node = function (_React$Component) {
         Wrapper,
         {
           id: data.id,
-          className: classes,
+          className: 'node ' + classes,
           onClick: function onClick() {
             return onSingleClick(data.id);
           },
@@ -27223,11 +27223,12 @@ var RenamingForm = function (_Component) {
 
       return _react2.default.createElement(
         Wrapper,
-        { listView: listView, onSubmit: onSubmit },
+        { listView: listView, onSubmit: onSubmit, className: 'renaming-form' },
         _react2.default.createElement('input', {
           type: 'text',
           value: value,
-          onChange: onChange })
+          onChange: onChange,
+          className: 'renaming-form-input' })
       );
     }
   }]);
@@ -27436,7 +27437,8 @@ var Menu = function (_Component) {
         Wrapper,
         {
           top: position.y,
-          left: position.x },
+          left: position.x,
+          className: 'menu' },
         type === 'general' && _react2.default.createElement(
           FirstLevelWrapper,
           null,
