@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 // Components
-import OriginalFileExplorer from '../src/FileExplorer';
+import OriginalFileExplorer from '../../src/FileExplorer';
 
 // Data
-import data from './data';
+import data from '../data';
 
-const FileExplorer = styled(OriginalFileExplorer)`
+const FileExplorer = styled(OriginalFileExplorer) `
   background: lightgreen;
 
   & .history {
@@ -35,9 +35,12 @@ const FileExplorer = styled(OriginalFileExplorer)`
 `;
 
 ReactDOM.render(
-  <FileExplorer
-    data={data}
-    onDownload={(id) => console.log('download', id)}
-    onRename={(id, name) => console.log('rename', id, name)} />,
+  <div>
+    <h1>With styled-components</h1>
+    <FileExplorer
+      data={data}
+      onDownload={(id) => console.log('download', id)}
+      onRename={(id, name) => console.log('rename', id, name)} />
+  </div>,
   document.getElementById('root')
 );

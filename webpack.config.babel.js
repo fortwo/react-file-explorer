@@ -5,7 +5,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const options = {
-  entry: './demo/index.js',
+  //entry: CSS ? './demo/with-css/index.js' : './demo/with-styled-components/index.js',
   output: {
     path: path.join(__dirname, 'demo'),
     filename: 'bundle.js',
@@ -48,7 +48,7 @@ const options = {
     ]
   },
   devServer: {
-    contentBase: path.join(__dirname, 'demo'),
+    //contentBase: path.join(__dirname, 'demo/with-styled-components/'),
     publicPath: '/demo/',
     port: 3001,
     hot: true,

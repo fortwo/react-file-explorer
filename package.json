@@ -4,7 +4,8 @@
   "description": "Customizable and responsive file explorer component for React applications.",
   "main": "/lib/react-file-explorer.js",
   "scripts": {
-    "start": "webpack-dev-server --hot",
+    "start:css": "webpack-dev-server --hot --entry ./demo/with-css/index.js --content-base ./demo/with-css/",
+    "start:styled-components": "webpack-dev-server --hot --entry ./demo/with-styled-components/index.js --content-base ./demo/with-styled-components/",
     "build": "webpack --config ./webpack.config.babel.js",
     "build:prod": "webpack --config ./webpack.prod.babel.js"
   },

@@ -26795,7 +26795,7 @@ var FileExplorer = function (_React$Component) {
 
       return _react2.default.createElement(
         Wrapper,
-        { className: className },
+        { className: 'container ' + className },
         showHistory && _react2.default.createElement(_History2.default, {
           nodes: this.state.history,
           goToUpperLevel: this.goToUpperLevel }),
@@ -26835,7 +26835,7 @@ var FileExplorer = function (_React$Component) {
 }(_react2.default.Component);
 
 FileExplorer.propTypes = {
-  className: _propTypes2.default.object,
+  className: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.object]),
   data: _propTypes2.default.array,
   showHistory: _propTypes2.default.bool,
   rootLabel: _propTypes2.default.string,
