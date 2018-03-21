@@ -53650,7 +53650,6 @@ var FileExplorer = function (_React$Component) {
   }, {
     key: 'handleNodeRightClick',
     value: function handleNodeRightClick(e, id) {
-      console.log('right click', e.clientX, e.clientY, this.node_container.offsetWidth, this.node_container.offsetHeight);
       var position = {
         x: e.clientX,
         y: this.node_container.offsetHeight + e.clientY - 16
@@ -53764,13 +53763,18 @@ var FileExplorer = function (_React$Component) {
   }, {
     key: 'handleDelete',
     value: function handleDelete() {
+      var onDelete = this.props.onDelete;
+
+
       this.setState({
         visibleMenu: false,
         position: {},
         deleting: this.state.selected
       });
 
-      this.props.onDelete(this.state.selected);
+      if (onDelete) {
+        onDelete(this.state.selected);
+      }
     }
   }, {
     key: 'render',

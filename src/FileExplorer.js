@@ -237,13 +237,17 @@ class FileExplorer extends React.Component {
   }
 
   handleDelete() {
+    const { onDelete } = this.props;
+
     this.setState({
       visibleMenu: false,
       position: {},
       deleting: this.state.selected,
     });
 
-    this.props.onDelete(this.state.selected);
+    if (onDelete) {
+      onDelete(this.state.selected);
+    }
   }
 
   render() {
