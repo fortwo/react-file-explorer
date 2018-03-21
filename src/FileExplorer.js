@@ -128,7 +128,7 @@ class FileExplorer extends React.Component {
     if (e.target === this.node_container) {
       const position = {
         x: (e.clientX > (this.node_container.offsetWidth / 2)) ? e.clientX - 100 - 16: e.clientX,
-        y: e.clientY,
+        y: this.node_container.offsetHeight + e.clientY - 16,
       };
 
       this.setState({
@@ -143,7 +143,7 @@ class FileExplorer extends React.Component {
   handleNodeRightClick(e, id) {
     const position = {
       x: e.clientX,
-      y: e.clientY,
+      y: this.node_container.offsetHeight + e.clientY - 16,
     };
 
     this.setState({
