@@ -149,13 +149,19 @@ class Menu extends Component {
         {
           type === 'file' &&
           <FirstLevelWrapper>
-            <li
-              onClick={onRename}
-              className='first-level'>Rename</li>
+            {
+              onRename &&
+              <li
+                onClick={onRename}
+                className='first-level'>Rename</li>
+            }
 
-            <li
-              onClick={onDelete}
-              className='first-level'>Delete</li>
+            {
+              onDelete &&
+              <li
+                onClick={onDelete}
+                className='first-level'>Delete</li>
+            }
           </FirstLevelWrapper>
         }
       </Wrapper>
