@@ -11,8 +11,9 @@ npm install --save react-file-explorer
 [React File Explorer](http://react-file-explorer.surge.sh/)
 
 ## Properties
+
 | Name | Type | Default | Required | Description |
-| -------- | ---- | ----------- |
+| ---- | ---- | ------- | -------- | ----------- |
 | data | array | [] | yes | The array of objects representing files and folders to be listed. See dedicated paragraph [here](#data) |
 | showHistory | boolean | true | no | Whether or not to show navigable history |
 | rootLabel | string | 'Home' | no | Text to be shown as history root |
