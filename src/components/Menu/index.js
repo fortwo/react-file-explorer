@@ -80,7 +80,7 @@ class Menu extends Component {
       position, type,
       viewMode, toggleViewMode,
       sortMode, sortableByName, sortableBySize, sortableByType, sortableByLastEdit, handleSortModeChange,
-      onDownload, onRename, onDelete,
+      onRename, onDelete,
     } = this.props;
 
     const sortable = sortableByName || sortableBySize || sortableByType || sortableByLastEdit;
@@ -150,10 +150,6 @@ class Menu extends Component {
           type === 'file' &&
           <FirstLevelWrapper>
             <li
-              onClick={onDownload}
-              className='first-level'>Download</li>
-
-            <li
               onClick={onRename}
               className='first-level'>Rename</li>
 
@@ -186,7 +182,6 @@ Menu.propTypes = {
   type: PropTypes.oneOf(['general', 'file']),
   onRename: PropTypes.func,
   onDelete: PropTypes.func,
-  onDownload: PropTypes.func,
 };
 
 Menu.defaultProps = {
