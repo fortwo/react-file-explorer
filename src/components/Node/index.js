@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -80,88 +80,80 @@ const Wrapper = styled.div`
   }
 `;
 
-class Node extends React.Component {
-  constructor(props) {
-    super(props);
+const Node = (props) => {
+  const {
+    data,
+    selected,
+    onSingleClick,
+    onRightClick,
+    viewMode,
+    renaming,
+    onRenameSubmit,
+    goToDeeperLevel
+  } = props;
 
-    this.state = {
-      name: props.data && props.data.name,
-    };
+  const [name, setName] = useState(data && data.name);
 
-    this.handleDoubleClick = this.handleDoubleClick.bind(this);
-    this.handleRightClick = this.handleRightClick.bind(this);
-    this.handleRenameSubmit = this.handleRenameSubmit.bind(this);
-  }
+  useEffect(() => {
+    setName(data && data.name);
+  }, [renaming])
 
-  componentWillReceiveProps(nextProps) {
-    // Reset state after rename
-    if (nextProps.renaming !== this.props.renaming && !nextProps.renaming) {
-      this.setState({
-        name: nextProps.data && nextProps.data.name,
-      });
-    }
-  }
-
-  handleDoubleClick(data) {
+  const handleDoubleClick = (data) => {
     if (data.children) {
-      this.props.goToDeeperLevel(data)
+      goToDeeperLevel(data)
     }
-  }
+  };
 
-  handleRightClick(e, id) {
+  const handleRightClick = (e, id) => {
     e.stopPropagation();
     e.preventDefault();
 
-    this.props.onRightClick(e, id);
-  }
+    onRightClick(e, id);
+  };
 
-  handleRenameSubmit(e) {
+  const handleRenameSubmit = (e) => {
     e.preventDefault();
 
-    const { data, onRenameSubmit } = this.props;
-    onRenameSubmit(data.id, this.state.name);
-  }
+    onRenameSubmit(data.id, name);
+  };
 
-  render() {
-    const { data, selected, onSingleClick, viewMode, renaming } = this.props;
-    const isFolder = !!data.children;
+  const isFolder = !!data.children;
 
-    const listView = viewMode === ViewModes.LIST;
+  const listView = viewMode === ViewModes.LIST;
 
-    const classes = classNames({
-      'file': !isFolder,
-      'folder': isFolder,
-      'selected': selected,
-      'list-mode': listView,
-      'small-icons-mode': viewMode === ViewModes.SMALL_ICONS,
-      'medium-icons-mode': viewMode === ViewModes.MEDIUM_ICONS,
-      'large-icons-mode': viewMode === ViewModes.LARGE_ICONS,
-    });
+  const classes = classNames({
+    'file': !isFolder,
+    'folder': isFolder,
+    'selected': selected,
+    'list-mode': listView,
+    'small-icons-mode': viewMode === ViewModes.SMALL_ICONS,
+    'medium-icons-mode': viewMode === ViewModes.MEDIUM_ICONS,
+    'large-icons-mode': viewMode === ViewModes.LARGE_ICONS,
+  });
 
-    return (
-      <Wrapper
-        id={data.id}
-        className={`node ${classes}`}
-        onClick={() => onSingleClick(data.id)}
-        onDoubleClick={() => this.handleDoubleClick(data)}
-        onContextMenu={(e) => this.handleRightClick(e, data.id)}>
-        <img className='icon' src={isFolder ? folderIcon : fileIcon} />
+  return (
+    <Wrapper
+      id={data.id}
+      className={`node ${classes}`}
+      onClick={() => onSingleClick(data.id)}
+      onDoubleClick={() => handleDoubleClick(data)}
+      onContextMenu={(e) => handleRightClick(e, data.id)}>
+      <img className='icon' src={isFolder ? folderIcon : fileIcon} />
 
-        {
-          renaming ?
-          <RenamingForm 
+      {
+        renaming ?
+          <RenamingForm
             listView={listView}
-            value={this.state.name} 
-            onChange={(e) => this.setState({ name: e.target.value })}
-            onSubmit={this.handleRenameSubmit} 
-            onClickOutside={this.handleRenameSubmit} />
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onSubmit={handleRenameSubmit}
+            onClickOutside={handleRenameSubmit} />
           :
           <div className='filename'>{data.name}</div>
-        }
-      </Wrapper>
-    );
-  }
-}
+      }
+    </Wrapper>
+  );
+};
 
 Node.propTypes = {
   data: PropTypes.object,
