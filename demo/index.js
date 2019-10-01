@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { tomorrowNightEighties } from 'react-syntax-highlighter/styles/hljs';
+import { tomorrowNightEighties } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 // Components
 import FileExplorer from '../src/FileExplorer';
@@ -18,7 +18,9 @@ ReactDOM.render(
     <h1>React File Explorer</h1>
 
     <h3>This is the style in use...</h3>
-    <SyntaxHighlighter language='css' style={tomorrowNightEighties}>{css}</SyntaxHighlighter>
+    <SyntaxHighlighter language="css" style={tomorrowNightEighties}>
+      {css}
+    </SyntaxHighlighter>
 
     <h3>...and this is the result</h3>
     <FileExplorer
