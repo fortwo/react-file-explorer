@@ -36,7 +36,7 @@
     "webpack-dev-server": "^2.5.0"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "prop-types": "^15.7.2",
     "react-click-outside": "^3.0.1",
     "react-syntax-highlighter": "^11.0.2",
