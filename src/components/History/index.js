@@ -17,24 +17,23 @@ const Wrapper = styled.div`
   }
 `;
 
-class History extends React.Component {
-  render() {
-    return (
-      <Wrapper className='history'>
-        {
-          this.props.nodes.map((node, index) => {
-            return (
-              <span 
-                key={index}
-                className='history-level'
-                onClick={() => this.props.goToUpperLevel(node)}>{node.name}</span>
-            );
-          })
-        }
-      </Wrapper>
-    );
-  }
+const History = ({nodes,goToUpperLevel}) => {  
+  return (
+    <Wrapper className='history'>
+      {
+        nodes.map((node, index) => {
+          return (
+            <span 
+              key={index}
+              className='history-level'
+              onClick={() => goToUpperLevel(node)}>{node.name}</span>
+          );
+        })
+      }
+    </Wrapper>
+  );
 }
+
 
 History.propTypes = {
   nodes: React.PropTypes.array,
